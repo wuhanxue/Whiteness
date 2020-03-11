@@ -1163,9 +1163,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1059544872}
   - component: {fileID: 1059544871}
-  - component: {fileID: 1059544873}
   - component: {fileID: 1059544875}
   - component: {fileID: 1059544874}
+  - component: {fileID: 1059544873}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1245,6 +1245,9 @@ MonoBehaviour:
   attackDamage: 10
   skillDamage: 20
   defence: 2
+  waitTime: 1
+  skill_1: {fileID: 1925240144018176, guid: f167c44ee18027a408e61d28e09481b1, type: 2}
+  skill_2: {fileID: 1102936626794126, guid: 6a97468b610872541b4cd6cd4e72ebd7, type: 2}
 --- !u!111 &1059544874
 Animation:
   m_ObjectHideFlags: 0
@@ -1853,6 +1856,7 @@ MonoBehaviour:
   attackDamage: 10
   skillDamage: 20
   defence: 2
+  waitTime: 1
   skill_1: {fileID: 1925240144018176, guid: f167c44ee18027a408e61d28e09481b1, type: 2}
   skill_2: {fileID: 1102936626794126, guid: 6a97468b610872541b4cd6cd4e72ebd7, type: 2}
 --- !u!1 &1813812242
@@ -1945,9 +1949,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813812242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d98d2dacfa0618345aa2fcef9e26678c, type: 3}
+  m_Script: {fileID: 11500000, guid: 06e8b36a7b603f54dbbb67c1ec9caf0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  isPlayerAction: 1
 --- !u!1 &1847462456
 GameObject:
   m_ObjectHideFlags: 0

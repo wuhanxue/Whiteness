@@ -8,13 +8,14 @@ public class RoleControl : MonoBehaviour {
 	public int attackDamage = 10;
 	public int skillDamage = 20;
 	public int defence = 2;
+	public float waitTime = 1f;
 
-	private Animator animator;
+	protected Animator animator;
 
 	// Use this for initialization
 	void Start()
 	{
-		animator = GetComponent<Animator>();
+		
 	}
 
 	// Update is called once per frame
@@ -53,16 +54,22 @@ public class RoleControl : MonoBehaviour {
 	/// <param name="damage">伤害值</param>
 	public virtual void ReceiveDamage(int damage)
 	{
+		Debug.Log("Receive damage " + damage);
 		hp -= damage;
 		DeadCheck();
 	}
+
+
 
 	/// <summary>
 	/// 移动
 	/// </summary>
 	protected virtual void AttackMove()
 	{
-		animator.SetTrigger("Attack");
+		if (animator != null)
+		{
+			animator.SetTrigger("Attack");
+		}
 	}
 
 	protected virtual void DeadCheck()
@@ -70,7 +77,12 @@ public class RoleControl : MonoBehaviour {
 		if (hp <= 0)
 		{
 			hp = 0;
-			animator.SetTrigger("Dead");
+			if (animator != null)
+			{
+				animator.SetTrigger("Dead");
+			}
 		}
 	}
+
+	
 }
