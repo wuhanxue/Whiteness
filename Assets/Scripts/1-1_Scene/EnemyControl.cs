@@ -31,12 +31,7 @@ public class EnemyControl : RoleControl
 		Debug.Log("Enemy attack");
 		GameObject skillGo = Instantiate(skill_1, playerControl.transform.position, Quaternion.identity);
 		Destroy(skillGo, 0.5f);
-		StartCoroutine("WaitTime");
-		operationControl.isPlayerAction = true;
 	}
 
-	IEnumerator WaitTime()
-	{
-		yield return new WaitForSeconds(waitTime);
-	}
+	
 }

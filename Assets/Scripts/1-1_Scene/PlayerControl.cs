@@ -28,8 +28,6 @@ public class PlayerControl : RoleControl
 		Debug.Log("Player attack");
 		GameObject skillGo = Instantiate(skill_1, enemyControl.transform.position, Quaternion.identity);
 		Destroy(skillGo, 0.5f);
-		StartCoroutine("WaitTime");
-		operationControl.isPlayerAction = false;
 	}
 
 	public override void SkillAttack()
@@ -38,12 +36,5 @@ public class PlayerControl : RoleControl
 		Debug.Log("Player attack");
 		GameObject skillGo = Instantiate(skill_2, enemyControl.transform.position, Quaternion.identity);
 		Destroy(skillGo, 0.5f);
-		StartCoroutine("WaitTime");
-		operationControl.isPlayerAction = false;
-	}
-
-	IEnumerator WaitTime()
-	{
-		yield return new WaitForSeconds(waitTime);
 	}
 }

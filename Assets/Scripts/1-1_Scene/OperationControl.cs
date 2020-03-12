@@ -6,7 +6,7 @@ public class OperationControl : MonoBehaviour {
 
 	RoleControl player;
 	RoleControl enemy;
-	GameObject operationPanel;
+	UIPanel operationPanel;
 
 	public GameState currentState = GameState.Menu;
 
@@ -16,18 +16,18 @@ public class OperationControl : MonoBehaviour {
 	{
 		player = GameObject.FindGameObjectWithTag(Const.Player).GetComponent<RoleControl>();
 		enemy = GameObject.FindGameObjectWithTag(Const.Enemy).GetComponent<RoleControl>();
-		operationPanel = GameObject.Find("OperationPanel");
+		operationPanel = GameObject.Find("OperationPanel").GetComponent<UIPanel>();
 	}
 
 	void Update()
 	{
 		if (isPlayerAction)
 		{
-			operationPanel.SetActive(true);
+			operationPanel.enabled = true;
 		}
 		else
 		{
-			operationPanel.SetActive(false);
+			operationPanel.enabled = false;
 		}
 
 		if (currentState == GameState.Game)
@@ -50,10 +50,10 @@ public class OperationControl : MonoBehaviour {
 	/// </summary>
 	public void OnAtkBtnClick()
 	{
-		player.CommonAttack();
+		player.CommonAttack();  
 		enemy.ReceiveDamage(player.attackDamage);
-		enemy.CommonAttack();
-		player.ReceiveDamage(enemy.attackDamage);
+		StartCoroutine("WaitTime");
+		
 	}
 
 	/// <summary>
@@ -63,8 +63,7 @@ public class OperationControl : MonoBehaviour {
 	{
 		player.SkillAttack();
 		enemy.ReceiveDamage(player.skillDamage);
-		enemy.CommonAttack();
-		player.ReceiveDamage(enemy.attackDamage);
+		StartCoroutine("WaitTime");
 	}
 
 	/// <summary>
@@ -73,7 +72,18 @@ public class OperationControl : MonoBehaviour {
 	public void OnDefBtnClick()
 	{
 		player.Defend();
+		StartCoroutine("WaitTime");
+	}
+
+	IEnumerator WaitTime()
+	{
+		// 玩家回合结束
+		isPlayerAction = false;
+		// 等待敌人攻击
+		yield return new WaitForSeconds(1f);
 		enemy.CommonAttack();
-		player.ReceiveDamage(enemy.attackDamage - player.defence);
+		player.ReceiveDamage(enemy.attackDamage);
+		// 玩家回合开始
+		isPlayerAction = true;
 	}
 }

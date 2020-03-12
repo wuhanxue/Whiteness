@@ -8,7 +8,6 @@ public class RoleControl : MonoBehaviour {
 	public int attackDamage = 10;
 	public int skillDamage = 20;
 	public int defence = 2;
-	public float waitTime = 1f;
 
 	protected Animator animator;
 
