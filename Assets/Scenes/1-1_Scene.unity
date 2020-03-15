@@ -1297,7 +1297,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300012, guid: b51900e43ba0c4543a41dc676a568055, type: 3}
+  m_Sprite: {fileID: 21300020, guid: b51900e43ba0c4543a41dc676a568055, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1313,7 +1313,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059544870}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.56, y: -0.85, z: 0}
   m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
   m_Children: []
@@ -1332,12 +1332,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  energy: 100
   attack: 10
   skill: 20
   defence: 2
   speed: 1
-  initialBlood: 100
-  bloodPercent: 0
+  initialHealth: 100
+  initialEnergy: 100
+  healthPercent: 0
+  energyPercent: 0
   attackTurn: 0
 --- !u!111 &1059544874
 Animation:
@@ -1861,9 +1864,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWaitForPlayerToChooseSkill: 0
   isWaitForPlayerToChooseTarget: 0
+  isUnitRunningToTarget: 0
+  isUnitRunningBack: 0
+  unitMoveSpeed: 1
   attackTypeName: 
   attackDamageMultiplier: 1
-  attackData: 0
+  attackValue: 0
 --- !u!4 &1689405129
 Transform:
   m_ObjectHideFlags: 0
@@ -1998,12 +2004,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  energy: 100
   attack: 10
   skill: 20
   defence: 2
   speed: 2
-  initialBlood: 100
-  bloodPercent: 0
+  initialHealth: 100
+  initialEnergy: 100
+  healthPercent: 0
+  energyPercent: 0
   attackTurn: 0
 --- !u!65 &1744623464
 BoxCollider:

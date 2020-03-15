@@ -48,13 +48,14 @@ public class UnitStatus : MonoBehaviour {
 		// 能量设置
 		energy = initialEnergy;
 		energyPercent = energy * 1f / initialEnergy;
-
+		// 先后手
+		attackTurn = speed * 1f / 100;
 		if (health <= 0)
 		{
 			dead = true;
 			gameObject.tag = "DeadUnit";
 		}
-
+		
 	}
 
 	// Update is called once per frame
