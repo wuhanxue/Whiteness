@@ -16,13 +16,14 @@ public class StatusPanel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		hpBar = owner.transform.Find(Const.HPBar).GetComponent<UISlider>();
-		spBar = owner.transform.Find(Const.SPBar).GetComponent<UISlider>();
+		hpBar = transform.Find(Const.HPBar).GetComponent<UISlider>();
+		spBar = transform.Find(Const.SPBar).GetComponent<UISlider>();
 		ownerStatus = owner.GetComponent<UnitStatus>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		hpBar.value = ownerStatus.bloodPercent;
+		hpBar.value = ownerStatus.healthPercent;
+		spBar.value = ownerStatus.energyPercent;
 	}
 }

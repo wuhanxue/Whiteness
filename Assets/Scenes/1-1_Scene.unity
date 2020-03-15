@@ -439,6 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233988219}
   - component: {fileID: 233988220}
+  - component: {fileID: 233988221}
   m_Layer: 5
   m_Name: StatusPanel
   m_TagString: Untagged
@@ -511,6 +512,18 @@ MonoBehaviour:
   mSortingLayerName: 
   mClipOffset: {x: 0, y: 0}
   useSortingOrder: 0
+--- !u!114 &233988221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 233988218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dadfa4b6894fb445904f528484a89d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 1744623458}
 --- !u!1 &242927575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,7 +1862,7 @@ MonoBehaviour:
   isWaitForPlayerToChooseSkill: 0
   isWaitForPlayerToChooseTarget: 0
   attackTypeName: 
-  attackDamageMultiplier: 0
+  attackDamageMultiplier: 1
   attackData: 0
 --- !u!4 &1689405129
 Transform:

@@ -41,7 +41,7 @@ public class BattleTurnSystem : MonoBehaviour {
 	// 攻击技能名称
 	public string attackTypeName;
 	// 攻击伤害系数
-	public float attackDamageMultiplier;
+	public float attackDamageMultiplier = 1f;
 	// 伤害值
 	public int attackData;
 	// 结束画面
@@ -157,6 +157,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			int targetIndex = Random.Range(0, remainingPlayerUnits.Length);
 			currentActUnitTarget = remainingPlayerUnits[targetIndex];
+			LanchAttack();
 		}
 		else if (currentActUnit.tag == Const.Player)
 		{
@@ -219,10 +220,8 @@ public class BattleTurnSystem : MonoBehaviour {
 		}
 		isWaitForPlayerToChooseSkill = false;
 		isWaitForPlayerToChooseTarget = true;
-		attackDamageMultiplier = 1f;
 		// 选择目标
 		Debug.Log("请选择目标...");
-		
 	}
 
 	/// <summary>
@@ -242,7 +241,6 @@ public class BattleTurnSystem : MonoBehaviour {
 		Debug.Log(currentActUnit.name + "使用技能（" + attackTypeName + "）对" + 
 			currentActUnitTarget.name + "造成了" + attackData + "点伤害");
 		StartCoroutine("WaitForTakeDamage");
-		
 	}
 
 	
