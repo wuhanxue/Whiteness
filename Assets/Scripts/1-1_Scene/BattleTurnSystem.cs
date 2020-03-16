@@ -343,7 +343,5 @@ public class BattleTurnSystem : MonoBehaviour {
 		isUnitRunningBack = true;
 		// 停顿一秒
 		yield return new WaitForSeconds(1f);
-		// 继续回合
-		ToBattle();
 	}
 }
