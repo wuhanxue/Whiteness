@@ -656,6 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265580194}
   - component: {fileID: 265580193}
+  - component: {fileID: 265580195}
   m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
@@ -720,6 +721,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &265580195
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 265580192}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 37c6eba61f7eb4c4b987409c87de0a1a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 37c6eba61f7eb4c4b987409c87de0a1a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &534314881
 GameObject:
   m_ObjectHideFlags: 0

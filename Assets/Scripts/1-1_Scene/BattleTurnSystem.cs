@@ -113,12 +113,12 @@ public class BattleTurnSystem : MonoBehaviour {
 			// 移动范围
 			if (distanceToTarget > 1)
 			{
-				//currentActUnit.GetComponent<Animator>().SetTrigger("Move");
+				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
 				currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
 			else
 			{
-				//currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
+				currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
 				// 停止移动
 				isUnitRunningToTarget = false;
 				// 发起进攻
@@ -133,12 +133,12 @@ public class BattleTurnSystem : MonoBehaviour {
 			// 移动范围
 			if (distanceToInitial > 1)
 			{
-				//currentActUnit.GetComponent<Animator>().SetTrigger("Move");
+				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
 				currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
 			else
 			{
-				//currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
+				currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
 				isUnitRunningBack = false;
 				currentActUnit.transform.position = currentActUnitIniticalPostion;
 				currentActUnit.transform.rotation = currentActUnitInitialRotation;
@@ -315,7 +315,8 @@ public class BattleTurnSystem : MonoBehaviour {
 		attackValue = (int) ((attackOwner.attack - attackReceiver.defence + Random.Range(-2, 2))
 			* attackDamageMultiplier);
 		// 播放动画
-		//currentActUnit.GetComponent<Animator>().SetTrigger("Attack");
+		currentActUnit.GetComponent<Animator>().SetTrigger("Attack");
+		// 音效
 		//currentActUnit.GetComponent<AudioSource>().Play();
 		Debug.Log(currentActUnit.name + "使用技能（" + attackTypeName + "）对" + 
 			currentActUnitTarget.name + "造成了" + attackValue + "点伤害");
