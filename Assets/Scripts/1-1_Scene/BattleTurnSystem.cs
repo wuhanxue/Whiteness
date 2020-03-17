@@ -334,15 +334,15 @@ public class BattleTurnSystem : MonoBehaviour {
 		currentActUnitTarget.GetComponent<UnitStatus>().ReceiveDamage(attackValue);
 		if (!currentActUnitTarget.GetComponent<UnitStatus>().IsDead)
 		{
-			currentActUnitTarget.GetComponent<Animator>().SetTrigger("TakeDamage");
+			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Damage");
 		}
 		else
 		{
 			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Dead");
 		}
-		// 攻击结束后返回
-		isUnitRunningBack = true;
 		// 停顿一秒
 		yield return new WaitForSeconds(1f);
+		// 攻击结束后返回
+		isUnitRunningBack = true;
 	}
 }
