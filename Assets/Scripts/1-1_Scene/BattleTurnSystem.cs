@@ -283,14 +283,10 @@ public class BattleTurnSystem : MonoBehaviour {
 				Debug.Log("选择技能2：即死技能");
 				break;
 			case 3:
-				// 技能3：毒性dot伤害3回合
-				Debug.Log("选择技能3：毒性dot伤害3回合");
-				break;
-			case 4:
 				// 技能4：魔法平A
 				Debug.Log("选择技能4：魔法平A");
 				break;
-			case 5:
+			case 4:
 				// 技能5：防御魔法
 				Debug.Log("选择技能5：防御魔法");
 				break;
