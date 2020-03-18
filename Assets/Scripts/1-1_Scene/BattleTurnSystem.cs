@@ -101,24 +101,20 @@ public class BattleTurnSystem : MonoBehaviour {
 
 	private void MoveUnit()
 	{
-		if (currentActUnit.tag == Const.Enemy)
-		{
-			Debug.Log("A");
-		}
 		// 向目标前进
 		if (isUnitRunningToTarget)
 		{
 			distanceToTarget = Vector3.Distance(currentActUnitTargetPostion, currentActUnit.transform.position);
 			Vector3 moveDir = currentActUnitTargetPostion - currentActUnitIniticalPostion;
 			// 移动范围
-			if (distanceToTarget > 1)
+			//if (distanceToTarget > 1)
 			{
 				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
-				currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
+				//currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
-			else
+			//else
 			{
-				currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
+				//currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
 				// 停止移动
 				isUnitRunningToTarget = false;
 				// 发起进攻
@@ -131,17 +127,17 @@ public class BattleTurnSystem : MonoBehaviour {
 			distanceToInitial = Vector3.Distance(currentActUnit.transform.position, currentActUnitIniticalPostion);
 			Vector3 moveDir = currentActUnitIniticalPostion - currentActUnitTargetPostion;
 			// 移动范围
-			if (distanceToInitial > 1)
+			//if (distanceToInitial > 1)
 			{
 				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
-				currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
+				//currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
-			else
+			//else
 			{
-				currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
+				//currentActUnit.GetComponent<Animator>().SetTrigger("Idle");
 				isUnitRunningBack = false;
-				currentActUnit.transform.position = currentActUnitIniticalPostion;
-				currentActUnit.transform.rotation = currentActUnitInitialRotation;
+				//currentActUnit.transform.position = currentActUnitIniticalPostion;
+				//currentActUnit.transform.rotation = currentActUnitInitialRotation;
 				// 下一回合
 				ToBattle();
 			}
@@ -311,7 +307,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		attackValue = (int) ((attackOwner.attack - attackReceiver.defence + Random.Range(-2, 2))
 			* attackDamageMultiplier);
 		// 播放动画
-		currentActUnit.GetComponent<Animator>().SetTrigger("Attack");
+		currentActUnit.GetComponent<Animator>().SetTrigger("Attack1");
 		// 音效
 		//currentActUnit.GetComponent<AudioSource>().Play();
 		Debug.Log(currentActUnit.name + "使用技能（" + attackTypeName + "）对" + 
@@ -330,7 +326,8 @@ public class BattleTurnSystem : MonoBehaviour {
 		currentActUnitTarget.GetComponent<UnitStatus>().ReceiveDamage(attackValue);
 		if (!currentActUnitTarget.GetComponent<UnitStatus>().IsDead)
 		{
-			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Damage");
+			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Hurt");
+			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Idle");
 		}
 		else
 		{
