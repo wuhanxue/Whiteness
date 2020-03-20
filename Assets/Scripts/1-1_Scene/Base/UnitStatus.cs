@@ -29,6 +29,8 @@ public class UnitStatus : MonoBehaviour {
 	public float energyPercent;
 	// 出手回合
 	public float attackTurn;
+	// 技能号
+	public int skillId = 1;
 	// 死亡与否
 	private bool dead = false;
 	// 标识是否死亡
@@ -37,7 +39,7 @@ public class UnitStatus : MonoBehaviour {
 		get { return dead; }
 	}
 
-    protected Animator animator;
+    private Animator animator;
 
 	// Use this for initialization
 	void Start()
@@ -50,31 +52,103 @@ public class UnitStatus : MonoBehaviour {
 		energyPercent = energy * 1f / initialEnergy;
 		// 先后手
 		attackTurn = speed * 1f / 100;
-		if (health <= 0)
-		{
-			dead = true;
-			gameObject.tag = "DeadUnit";
-		}
-		
+
+		animator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
+		if (health <= 0)
+		{
+			dead = true;
+			gameObject.tag = "DeadUnit";
+		}
 	}
 
 	/// <summary>
 	/// 受到攻击
 	/// </summary>
 	/// <param name="damage">伤害值</param>
-	public virtual void ReceiveDamage(int damage)
+	public void ReceiveDamage(int damage)
 	{
 		health -= damage;
 		healthPercent = health * 1f / initialHealth;
 		Debug.Log(gameObject.name + "掉血" + damage + "点，剩余生命值" + health);
 	}
 
+	public void Attack()
+	{
+		StartCoroutine("WaitForAttack" + skillId);
+	}
 
-	
+	IEnumerator WaitForAttack1()
+	{
+		// 技能1：火焰dot伤害3回合
+		Debug.Log("选择技能1：火焰dot伤害3回合");
+		// 播放动画
+		animator.SetTrigger("Attack1");
+		yield return new WaitForSeconds(0.75f);
+		animator.ResetTrigger("Attack1");
+		animator.SetTrigger("Idle");
+	}
+
+	IEnumerator WaitForAttack2()
+	{
+		// 技能2：即死技能
+		Debug.Log("选择技能2：即死技能");
+		// 播放动画
+		animator.SetTrigger("Attack2");
+		yield return new WaitForSeconds(0.75f);
+		animator.ResetTrigger("Attack2");
+		animator.SetTrigger("Idle");
+	}
+
+	IEnumerator WaitForAttack3()
+	{
+		// 技能3：魔法平A
+		Debug.Log("选择技能3：魔法平A");
+		// 播放动画
+		animator.SetTrigger("Attack3");
+		yield return new WaitForSeconds(0.75f);
+		animator.ResetTrigger("Attack3");
+		animator.SetTrigger("Idle");
+	}
+
+	IEnumerator WaitForAttack4()
+	{
+		// 技能4：防御魔法
+		Debug.Log("选择技能4：防御魔法");
+		// 播放动画
+		animator.SetTrigger("Defend");
+		yield return new WaitForSeconds(0.75f);
+		animator.ResetTrigger("Defend");
+		animator.SetTrigger("Idle");
+	}
+
+	public void Hurt(int attackValue)
+	{
+		StartCoroutine("WaitForTakeDamage", attackValue);
+	}
+
+	IEnumerator WaitForTakeDamage(int attackValue)
+	{
+		// 被攻击者受伤
+		ReceiveDamage(attackValue);
+		if (!IsDead)
+		{
+			animator.SetTrigger("Hurt");
+			yield return new WaitForSeconds(0.3f);
+			animator.ResetTrigger("Hurt");
+			animator.SetTrigger("Idle");
+		}
+		else
+		{
+			animator.SetTrigger("Dead");
+		}
+		// 停顿一秒
+		yield return new WaitForSeconds(1f);
+		
+	}
+
 }

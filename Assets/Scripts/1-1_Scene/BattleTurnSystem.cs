@@ -109,7 +109,7 @@ public class BattleTurnSystem : MonoBehaviour {
 			// 移动范围
 			//if (distanceToTarget > 1)
 			{
-				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
+				//currentActUnit.GetComponent<Animator>().SetTrigger("Move");
 				//currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
 			//else
@@ -129,7 +129,7 @@ public class BattleTurnSystem : MonoBehaviour {
 			// 移动范围
 			//if (distanceToInitial > 1)
 			{
-				currentActUnit.GetComponent<Animator>().SetTrigger("Move");
+				//currentActUnit.GetComponent<Animator>().SetTrigger("Move");
 				//currentActUnit.transform.Translate(moveDir * unitMoveSpeed * Time.deltaTime);
 			}
 			//else
@@ -155,11 +155,15 @@ public class BattleTurnSystem : MonoBehaviour {
 			targetChooseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(targetChooseRay, out targetHit))
 			{
-				if (Input.GetMouseButtonDown(0))
-				//if (Input.GetMouseButtonDown(0) && targetHit.collider.gameObject.tag == Const.Enemy)
+				if (Input.GetMouseButtonDown(0) && targetHit.collider.gameObject.tag == Const.Enemy)
 				{
 					currentActUnitTarget = targetHit.collider.gameObject;
 					Debug.Log("选择：" + currentActUnitTarget.name);
+					// 关闭敌人的碰撞
+					remainingEnemyUnits.ToList().ForEach(p =>
+					{
+						p.GetComponent<BoxCollider>().enabled = false;
+					});
 					RunToTarget();
 				}
 			}
@@ -206,9 +210,9 @@ public class BattleTurnSystem : MonoBehaviour {
 			// 重新加入战斗单位序列
 			battleUnits.Add(currentActUnit);
 			// 获取角色组件
-			UnitStatus currentActUnitStats = currentActUnit.GetComponent<UnitStatus>();
+			UnitStatus attackOwner = currentActUnit.GetComponent<UnitStatus>();
 
-			if (!currentActUnitStats.IsDead)
+			if (!attackOwner.IsDead)
 			{
 				FindTarget();
 			}
@@ -226,6 +230,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			int targetIndex = Random.Range(0, remainingPlayerUnits.Length);
 			currentActUnitTarget = remainingPlayerUnits[targetIndex];
+			currentActUnit.GetComponent<UnitStatus>().skillId = 1;
 			RunToTarget();
 		}
 		else if (currentActUnit.tag == Const.Player)
@@ -258,6 +263,15 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			// 打开操作面板
 			operationPanel.enabled = true;
+			// 启用敌人的碰撞
+			remainingEnemyUnits.ToList().ForEach(p =>
+			{
+				p.GetComponent<BoxCollider>().enabled = true;
+			});
+		}
+		else
+		{
+			operationPanel.enabled = false;
 		}
 	}
 
@@ -271,22 +285,19 @@ public class BattleTurnSystem : MonoBehaviour {
 		switch (skillId)
 		{
 			case 1:
-				// 技能1：火焰dot伤害3回合
-				Debug.Log("选择技能1：火焰dot伤害3回合");
+				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
 				break;
 			case 2:
-				// 技能2：即死技能
-				Debug.Log("选择技能2：即死技能");
+				currentActUnit.GetComponent<UnitStatus>().skillId = 2;
 				break;
 			case 3:
-				// 技能4：魔法平A
-				Debug.Log("选择技能4：魔法平A");
+				currentActUnit.GetComponent<UnitStatus>().skillId = 3;
 				break;
 			case 4:
-				// 技能5：防御魔法
-				Debug.Log("选择技能5：防御魔法");
+				currentActUnit.GetComponent<UnitStatus>().skillId = 4;
 				break;
 			default:
+				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
 				break;
 		}
 		isWaitForPlayerToChooseSkill = false;
@@ -306,34 +317,16 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 计算伤害
 		attackValue = (int) ((attackOwner.attack - attackReceiver.defence + Random.Range(-2, 2))
 			* attackDamageMultiplier);
-		// 播放动画
-		currentActUnit.GetComponent<Animator>().SetTrigger("Attack1");
-		// 音效
-		//currentActUnit.GetComponent<AudioSource>().Play();
-		Debug.Log(currentActUnit.name + "使用技能（" + attackTypeName + "）对" + 
-			currentActUnitTarget.name + "造成了" + attackValue + "点伤害");
-		StartCoroutine("WaitForTakeDamage");
+		// 攻击
+		attackOwner.Attack();
+		// 被攻击方受伤
+		attackReceiver.ReceiveDamage(attackValue);
+		// 等待时间
+		StartCoroutine("WaitForTargetAct");
 	}
 
-	
-	/// <summary>
-	/// 受攻击方遭受攻击
-	/// </summary>
-	/// <returns></returns>
-	IEnumerator WaitForTakeDamage()
+	IEnumerator WaitForTargetAct()
 	{
-		// 被攻击者受伤
-		currentActUnitTarget.GetComponent<UnitStatus>().ReceiveDamage(attackValue);
-		if (!currentActUnitTarget.GetComponent<UnitStatus>().IsDead)
-		{
-			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Hurt");
-			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Idle");
-		}
-		else
-		{
-			currentActUnitTarget.GetComponent<Animator>().SetTrigger("Dead");
-		}
-		// 停顿一秒
 		yield return new WaitForSeconds(1f);
 		// 攻击结束后返回
 		isUnitRunningBack = true;
