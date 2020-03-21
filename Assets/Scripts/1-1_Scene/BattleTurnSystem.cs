@@ -230,7 +230,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			int targetIndex = Random.Range(0, remainingPlayerUnits.Length);
 			currentActUnitTarget = remainingPlayerUnits[targetIndex];
-			currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+			currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 			RunToTarget();
 		}
 		else if (currentActUnit.tag == Const.Player)
@@ -285,19 +285,19 @@ public class BattleTurnSystem : MonoBehaviour {
 		switch (skillId)
 		{
 			case 1:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S001-001");
 				break;
 			case 2:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 2;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			case 3:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 3;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			case 4:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 4;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			default:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 		}
 		isWaitForPlayerToChooseSkill = false;
@@ -320,7 +320,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 攻击
 		attackOwner.Attack();
 		// 被攻击方受伤
-		attackReceiver.ReceiveDamage(attackValue);
+		attackReceiver.Hurt(attackValue);
 		// 等待时间
 		StartCoroutine("WaitForTargetAct");
 	}

@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class UnitStatus : MonoBehaviour {
 
+	public string unitId = "U001";
     // 血量
     public int health = 100;
 	// 能量
@@ -30,9 +31,11 @@ public class UnitStatus : MonoBehaviour {
 	// 出手回合
 	public float attackTurn;
 	// 技能号
-	public int skillId = 1;
+	public SkillStatus skillStatus;
+	public GameObject damageInfo;
 	// 死亡与否
 	private bool dead = false;
+	private GameObject uiRoot;
 	// 标识是否死亡
 	public bool IsDead
 	{
@@ -54,6 +57,7 @@ public class UnitStatus : MonoBehaviour {
 		attackTurn = speed * 1f / 100;
 
 		animator = GetComponent<Animator>();
+		uiRoot = GameObject.Find("UI Root");
 	}
 
 	// Update is called once per frame
@@ -66,20 +70,15 @@ public class UnitStatus : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// 受到攻击
-	/// </summary>
-	/// <param name="damage">伤害值</param>
-	public void ReceiveDamage(int damage)
+	public void SetSkill(string skillId)
 	{
-		health -= damage;
-		healthPercent = health * 1f / initialHealth;
-		Debug.Log(gameObject.name + "掉血" + damage + "点，剩余生命值" + health);
+		skillStatus.skillId = skillId;
 	}
+	
 
 	public void Attack()
 	{
-		StartCoroutine("WaitForAttack" + skillId);
+		StartCoroutine("WaitForAttack" + skillStatus.skillId);
 	}
 
 	IEnumerator WaitForAttack1()
@@ -149,6 +148,27 @@ public class UnitStatus : MonoBehaviour {
 		// 停顿一秒
 		yield return new WaitForSeconds(1f);
 		
+	}
+
+	/// <summary>
+	/// 受到攻击
+	/// </summary>
+	/// <param name="damage">伤害值</param>
+	void ReceiveDamage(int damage)
+	{
+		health -= damage;
+		healthPercent = health * 1f / initialHealth;
+		Debug.Log(gameObject.name + "掉血" + damage + "点，剩余生命值" + health);
+		// 世界坐标转屏幕坐标
+		Vector3 unitPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 2f, 0));
+		unitPos.z = 0f;
+		Vector3 unitScreenPos = UICamera.currentCamera.ScreenToWorldPoint(unitPos);
+		GameObject info = Instantiate(damageInfo);
+		info.GetComponent<UILabel>().text = "-" + damage;
+		info.transform.SetParent(uiRoot.transform, false);
+		info.transform.position = unitScreenPos;
+		// 销毁
+		Destroy(info, 0.3f);
 	}
 
 }
