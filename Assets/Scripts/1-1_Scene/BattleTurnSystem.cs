@@ -230,7 +230,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			int targetIndex = Random.Range(0, remainingPlayerUnits.Length);
 			currentActUnitTarget = remainingPlayerUnits[targetIndex];
-			currentActUnit.GetComponent<UnitStatus>().SetSkill("");
+			currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_001");
 			RunToTarget();
 		}
 		else if (currentActUnit.tag == Const.Player)
@@ -285,19 +285,19 @@ public class BattleTurnSystem : MonoBehaviour {
 		switch (skillId)
 		{
 			case 1:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S001-001");
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_001");
 				break;
 			case 2:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_002");
 				break;
 			case 3:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_003");
 				break;
 			case 4:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_004");
 				break;
 			default:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_001");
 				break;
 		}
 		isWaitForPlayerToChooseSkill = false;

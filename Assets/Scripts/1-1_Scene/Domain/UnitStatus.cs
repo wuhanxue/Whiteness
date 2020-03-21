@@ -31,7 +31,7 @@ public class UnitStatus : MonoBehaviour {
 	// 出手回合
 	public float attackTurn;
 	// 技能号
-	public SkillStatus skillStatus;
+	public SkillStatus skillStatus = new SkillStatus();
 	public GameObject damageInfo;
 	// 死亡与否
 	private bool dead = false;
@@ -70,18 +70,24 @@ public class UnitStatus : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// 设置当前技能
+	/// </summary>
+	/// <param name="skillId"></param>
 	public void SetSkill(string skillId)
 	{
 		skillStatus.skillId = skillId;
 	}
 	
-
+	/// <summary>
+	/// 攻击
+	/// </summary>
 	public void Attack()
 	{
-		StartCoroutine("WaitForAttack" + skillStatus.skillId);
+		StartCoroutine("WaitForAttack_" + skillStatus.skillId);
 	}
 
-	IEnumerator WaitForAttack1()
+	IEnumerator WaitForAttack_S_001_001()
 	{
 		// 技能1：火焰dot伤害3回合
 		Debug.Log("选择技能1：火焰dot伤害3回合");
@@ -92,7 +98,7 @@ public class UnitStatus : MonoBehaviour {
 		animator.SetTrigger("Idle");
 	}
 
-	IEnumerator WaitForAttack2()
+	IEnumerator WaitForAttack_S_001_002()
 	{
 		// 技能2：即死技能
 		Debug.Log("选择技能2：即死技能");
@@ -103,7 +109,7 @@ public class UnitStatus : MonoBehaviour {
 		animator.SetTrigger("Idle");
 	}
 
-	IEnumerator WaitForAttack3()
+	IEnumerator WaitForAttack_S_001_003()
 	{
 		// 技能3：魔法平A
 		Debug.Log("选择技能3：魔法平A");
@@ -114,7 +120,7 @@ public class UnitStatus : MonoBehaviour {
 		animator.SetTrigger("Idle");
 	}
 
-	IEnumerator WaitForAttack4()
+	IEnumerator WaitForAttack_S_001_004()
 	{
 		// 技能4：防御魔法
 		Debug.Log("选择技能4：防御魔法");
@@ -125,6 +131,10 @@ public class UnitStatus : MonoBehaviour {
 		animator.SetTrigger("Idle");
 	}
 
+	/// <summary>
+	/// 被攻击
+	/// </summary>
+	/// <param name="attackValue"></param>
 	public void Hurt(int attackValue)
 	{
 		StartCoroutine("WaitForTakeDamage", attackValue);
@@ -151,7 +161,7 @@ public class UnitStatus : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 受到攻击
+	/// 生命减少
 	/// </summary>
 	/// <param name="damage">伤害值</param>
 	void ReceiveDamage(int damage)

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillStatus : MonoBehaviour {
+public class SkillStatus {
 	// 编号
-	public string skillId = "S001";
+	public string skillId;
 	// 名称
 	public string skillName;
 	// 伤害
