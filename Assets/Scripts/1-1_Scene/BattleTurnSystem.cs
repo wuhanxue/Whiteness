@@ -320,7 +320,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 攻击
 		attackOwner.Attack();
 		// 被攻击方受伤
-		attackReceiver.ReceiveDamage(attackValue);
+		attackReceiver.Hurt(attackValue);
 		// 等待时间
 		StartCoroutine("WaitForTargetAct");
 	}

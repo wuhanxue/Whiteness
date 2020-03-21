@@ -1246,6 +1246,14 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 1008747049246344, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565114309948568, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
   m_IsPrefabParent: 0
@@ -1466,6 +1474,8 @@ MonoBehaviour:
   healthPercent: 0
   energyPercent: 0
   attackTurn: 0
+  skillId: 1
+  damageInfo: {fileID: 1719529229153900, guid: 09f7dc3bdce3ae64a807ea57eddc7b38, type: 2}
 --- !u!95 &1278626919
 Animator:
   serializedVersion: 3
@@ -1920,6 +1930,14 @@ Prefab:
       propertyPath: m_Name
       value: SPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1565114309948568, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008747049246344, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7202bbeda19114449a22025e366ce44c, type: 2}
   m_IsPrefabParent: 0
@@ -2157,6 +2175,8 @@ MonoBehaviour:
   healthPercent: 0
   energyPercent: 0
   attackTurn: 0
+  skillId: 1
+  damageInfo: {fileID: 1719529229153900, guid: 09f7dc3bdce3ae64a807ea57eddc7b38, type: 2}
 --- !u!95 &1802132848
 Animator:
   serializedVersion: 3
