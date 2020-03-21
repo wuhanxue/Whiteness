@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum GameState {
 
-    Menu,   //游戏开始菜单  
-    Game,   //游戏中 
-    Over    //游戏结束
+    Menu = 0,   //游戏开始菜单  
+    Game = 1,   //游戏中 
+    Over = 2,   //游戏结束
 
 }

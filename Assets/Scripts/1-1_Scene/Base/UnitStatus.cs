@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class UnitStatus : MonoBehaviour {
 
+	public string unitId = "U001";
     // 血量
     public int health = 100;
 	// 能量
@@ -30,7 +31,7 @@ public class UnitStatus : MonoBehaviour {
 	// 出手回合
 	public float attackTurn;
 	// 技能号
-	public int skillId = 1;
+	public SkillStatus skillStatus;
 	public GameObject damageInfo;
 	// 死亡与否
 	private bool dead = false;
@@ -69,11 +70,15 @@ public class UnitStatus : MonoBehaviour {
 		}
 	}
 
+	public void SetSkill(string skillId)
+	{
+		skillStatus.skillId = skillId;
+	}
 	
 
 	public void Attack()
 	{
-		StartCoroutine("WaitForAttack" + skillId);
+		StartCoroutine("WaitForAttack" + skillStatus.skillId);
 	}
 
 	IEnumerator WaitForAttack1()

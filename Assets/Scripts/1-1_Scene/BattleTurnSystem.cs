@@ -285,19 +285,19 @@ public class BattleTurnSystem : MonoBehaviour {
 		switch (skillId)
 		{
 			case 1:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("S001-001");
 				break;
 			case 2:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 2;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			case 3:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 3;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			case 4:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 4;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 			default:
-				currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+				currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 				break;
 		}
 		isWaitForPlayerToChooseSkill = false;
