@@ -230,7 +230,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		{
 			int targetIndex = Random.Range(0, remainingPlayerUnits.Length);
 			currentActUnitTarget = remainingPlayerUnits[targetIndex];
-			currentActUnit.GetComponent<UnitStatus>().skillId = 1;
+			currentActUnit.GetComponent<UnitStatus>().SetSkill("");
 			RunToTarget();
 		}
 		else if (currentActUnit.tag == Const.Player)
