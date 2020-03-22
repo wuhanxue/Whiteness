@@ -80,6 +80,16 @@ public class UnitStatus : MonoBehaviour {
 		skillStatus = GetSkillById(skillId);
 	}
 
+	public void SetSkill(SkillStatus skillStatus)
+	{
+		this.skillStatus = skillStatus;
+	}
+
+	public SkillStatus GetSkill()
+	{
+		return skillStatus;
+	}
+
 	/// <summary>
 	/// 获取技能伤害
 	/// </summary>
@@ -119,6 +129,8 @@ public class UnitStatus : MonoBehaviour {
 	/// </summary>
 	public void Attack()
 	{
+		// 回合数减1
+		skillStatus.turnCount -= 1;
 		StartCoroutine("WaitForAttack_" + skillStatus.skillId);
 	}
 

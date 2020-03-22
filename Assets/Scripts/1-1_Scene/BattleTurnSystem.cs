@@ -57,6 +57,12 @@ public class BattleTurnSystem : MonoBehaviour {
 	public float unitMoveSpeed = 1f;
 	// 当前单位移动后停留位置
 	private Vector3 currentUnitStopPosition;
+	// 上回合玩家选择的目标
+	private GameObject lastActUnitTarget;
+	// 上回合玩家选择的技能
+	private SkillStatus lastActUnitSkill;
+	// 标识是否攻击过
+	private bool isAttacked;
 
 	// 攻击技能名称
 	public string attackTypeName;
@@ -66,6 +72,8 @@ public class BattleTurnSystem : MonoBehaviour {
 	public int attackValue;
 	// 结束画面
 	private GameObject endImg;
+	// 胜利画面
+	private GameObject winImg;
 	// 操作画面
 	private UIPanel operationPanel;
 
@@ -73,8 +81,9 @@ public class BattleTurnSystem : MonoBehaviour {
 	{
 		endImg = GameObject.Find("EndImg");
 		endImg.SetActive(false);
+		winImg = GameObject.Find("WinImg");
+		winImg.SetActive(false);
 		operationPanel = GameObject.Find("OperationPanel").GetComponent<UIPanel>();
-
 		// 创建参战列表
 		battleUnits = new List<GameObject>();
 		// 添加玩家单位至参战列表
@@ -158,6 +167,7 @@ public class BattleTurnSystem : MonoBehaviour {
 				if (Input.GetMouseButtonDown(0) && targetHit.collider.gameObject.tag == Const.Enemy)
 				{
 					currentActUnitTarget = targetHit.collider.gameObject;
+						
 					Debug.Log("选择：" + currentActUnitTarget.name);
 					// 关闭敌人的碰撞
 					remainingEnemyUnits.ToList().ForEach(p =>
@@ -194,6 +204,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		if (remainingEnemyUnits.Length == 0)
 		{
 			Debug.Log("敌人全灭，战斗胜利");
+			winImg.SetActive(true);
 			return;
 		}
 		else if (remainingPlayerUnits.Length == 0)
@@ -261,8 +272,25 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 检查是否轮到玩家攻击
 		if (isWaitForPlayerToChooseSkill)
 		{
-			// 打开操作面板
-			operationPanel.enabled = true;
+			// 判断上次技能是否为多回合技能
+			if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
+			{
+				// 延续上回合的技能
+				PlayerSkillChoose(null);
+				currentActUnitTarget = lastActUnitTarget;
+				Debug.Log("选择：" + currentActUnitTarget.name);
+				// 关闭敌人的碰撞
+				remainingEnemyUnits.ToList().ForEach(p =>
+				{
+					p.GetComponent<BoxCollider>().enabled = false;
+				});
+				RunToTarget();
+			}
+			else
+			{
+				// 打开操作面板，进行玩家选择
+				operationPanel.enabled = true;
+			}
 			// 启用敌人的碰撞
 			remainingEnemyUnits.ToList().ForEach(p =>
 			{
@@ -276,29 +304,20 @@ public class BattleTurnSystem : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 玩家技能
+	/// 玩家技能选择
 	/// </summary>
-	public void PlayerSkillChoose(int skillId)
+	public void PlayerSkillChoose(string skillId)
 	{
-		// update by MATT, 2020/03/14
-		// TODO:技能制作 
-		switch (skillId)
+		UnitStatus currentActUnitStatus = currentActUnit.GetComponent<UnitStatus>();
+		// 如果是回合技能
+		if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
 		{
-			case 1:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_001");
-				break;
-			case 2:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_002");
-				break;
-			case 3:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_003");
-				break;
-			case 4:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_004");
-				break;
-			default:
-				currentActUnit.GetComponent<UnitStatus>().SetSkill("S_001_001");
-				break;
+			currentActUnitStatus.SetSkill(lastActUnitSkill);
+		}
+		else
+		{
+			// 赋值技能
+			currentActUnitStatus.SetSkill(skillId);
 		}
 		isWaitForPlayerToChooseSkill = false;
 		isWaitForPlayerToChooseTarget = true;
@@ -322,6 +341,13 @@ public class BattleTurnSystem : MonoBehaviour {
 		attackOwner.Attack();
 		// 被攻击方受伤
 		attackReceiver.Hurt(attackValue);
+		if (currentActUnit.tag == Const.Player)
+		{
+			// 保存该次选择的目标
+			lastActUnitTarget = currentActUnitTarget;
+			// 保存该次技能对象
+			lastActUnitSkill = attackOwner.GetSkill();
+		}
 		// 等待时间
 		StartCoroutine("WaitForTargetAct");
 	}

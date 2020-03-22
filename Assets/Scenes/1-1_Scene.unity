@@ -1463,6 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8467bfe1ef97bec4aaed675671a41083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitId: U001
   health: 100
   energy: 100
   attack: 10
@@ -1474,7 +1475,6 @@ MonoBehaviour:
   healthPercent: 0
   energyPercent: 0
   attackTurn: 0
-  skillId: 1
   damageInfo: {fileID: 1719529229153900, guid: 09f7dc3bdce3ae64a807ea57eddc7b38, type: 2}
 --- !u!95 &1278626919
 Animator:
@@ -2164,6 +2164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8467bfe1ef97bec4aaed675671a41083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitId: U001
   health: 100
   energy: 100
   attack: 10
@@ -2175,7 +2176,6 @@ MonoBehaviour:
   healthPercent: 0
   energyPercent: 0
   attackTurn: 0
-  skillId: 1
   damageInfo: {fileID: 1719529229153900, guid: 09f7dc3bdce3ae64a807ea57eddc7b38, type: 2}
 --- !u!95 &1802132848
 Animator:
