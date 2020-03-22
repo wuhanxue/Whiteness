@@ -8,7 +8,7 @@ public class SkillStatus {
 	// 名称
 	public string skillName;
 	// 伤害
-	public int damage;
+	public int damage = 10;
 	// 命中率
 	public float rate = 1f;
 	// 攻击回合数

@@ -31,7 +31,7 @@ public class UnitStatus : MonoBehaviour {
 	// 出手回合
 	public float attackTurn;
 	// 技能号
-	public SkillStatus skillStatus = new SkillStatus();
+	public SkillStatus skillStatus;
 	public GameObject damageInfo;
 	// 死亡与否
 	private bool dead = false;
@@ -67,6 +67,7 @@ public class UnitStatus : MonoBehaviour {
 		{
 			dead = true;
 			gameObject.tag = "DeadUnit";
+			animator.SetTrigger("Dead");
 		}
 	}
 
@@ -76,7 +77,51 @@ public class UnitStatus : MonoBehaviour {
 	/// <param name="skillId"></param>
 	public void SetSkill(string skillId)
 	{
+		skillStatus = GetSkillById(skillId);
+	}
+
+	public void SetSkill(SkillStatus skillStatus)
+	{
+		this.skillStatus = skillStatus;
+	}
+
+	public SkillStatus GetSkill()
+	{
+		return skillStatus;
+	}
+
+	/// <summary>
+	/// 获取技能伤害
+	/// </summary>
+	/// <param name="skillId"></param>
+	/// <returns></returns>
+	SkillStatus GetSkillById(string skillId)
+	{
+		SkillStatus skillStatus = new SkillStatus();
 		skillStatus.skillId = skillId;
+		// 目前先用字符串代替，后期转移到数据库
+		switch (skillId)
+		{
+			case "S_001_001":
+				skillStatus.damage = 10;
+				skillStatus.turnCount = 3;
+				break;
+			case "S_001_002":
+				skillStatus.damage = 9999;
+				break;
+			case "S_001_003":
+				skillStatus.damage = 20;
+				break;
+			case "S_001_004":
+				skillStatus.damage = 0;
+				break;
+			default:
+				skillStatus.damage = 10;
+				break;
+		}
+		
+
+		return skillStatus;
 	}
 	
 	/// <summary>
@@ -84,6 +129,8 @@ public class UnitStatus : MonoBehaviour {
 	/// </summary>
 	public void Attack()
 	{
+		// 回合数减1
+		skillStatus.turnCount -= 1;
 		StartCoroutine("WaitForAttack_" + skillStatus.skillId);
 	}
 
@@ -150,10 +197,6 @@ public class UnitStatus : MonoBehaviour {
 			yield return new WaitForSeconds(0.3f);
 			animator.ResetTrigger("Hurt");
 			animator.SetTrigger("Idle");
-		}
-		else
-		{
-			animator.SetTrigger("Dead");
 		}
 		// 停顿一秒
 		yield return new WaitForSeconds(1f);
