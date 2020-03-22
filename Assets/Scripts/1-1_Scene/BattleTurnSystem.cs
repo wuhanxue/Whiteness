@@ -315,8 +315,9 @@ public class BattleTurnSystem : MonoBehaviour {
 		UnitStatus attackOwner = currentActUnit.GetComponent<UnitStatus>();
 		UnitStatus attackReceiver = currentActUnitTarget.GetComponent<UnitStatus>();
 		// 计算伤害
-		attackValue = (int) ((attackOwner.attack - attackReceiver.defence + Random.Range(-2, 2))
+		attackValue = (int) ((attackOwner.skillStatus.damage - attackReceiver.defence + Random.Range(-2, 2))
 			* attackDamageMultiplier);
+		if (attackValue < 0) attackValue = 0;
 		// 攻击
 		attackOwner.Attack();
 		// 被攻击方受伤
