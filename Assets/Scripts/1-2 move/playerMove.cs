@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour {
 
-    public float smoothing = 2;  // 移动速度
-	public float restTime = 1;  // 休息时间
+    public float smoothing = 20;  // 移动速度
+	public float restTime = 0.15f;  // 休息时间
 	public float restTimer = 0;
+
 
 	private Vector2 targetPos = new Vector2(1,1);  // 目标位置
     private Rigidbody2D rigidbody;
@@ -24,14 +25,13 @@ public class playerMove : MonoBehaviour {
 		if (restTimer < restTime) return;
 		float h = Input.GetAxisRaw("Horizontal");
 		float v = Input.GetAxisRaw("Vertical");
-        if(h > 0){
+		animator.SetInteger("direction", -1);
+		if (h > 0){
           v = 0;
 		}
 		if (h != 0 || v != 0)  // 发生了移动
 		{
-			Debug.Log("(" + h+","+v+")");
-			targetPos += new Vector2(h, v);
-			Debug.Log("(" + h + "," + v + ")");
+			targetPos = new Vector2(h, v);
 			rigidbody.MovePosition(Vector2.Lerp(transform.position, targetPos, smoothing * Time.deltaTime));
 			if (h < 0)
 			{
@@ -50,7 +50,8 @@ public class playerMove : MonoBehaviour {
 				animator.SetInteger("direction", 3);
 			}
 			restTimer = 0;
-			//animator.SetInteger("direction", -1);
+
+			
 
 		}
 	}
