@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class OperationPanel : MonoBehaviour {
 
-	UIButton atkBtn;
-	UIButton sklBtn;
-	UIButton defBtn;
+	UIButton sklBtn1;
+	UIButton sklBtn2;
+	UIButton sklBtn3;
+	UIButton sklBtn4;
 
 
 	void Awake()
 	{
-		atkBtn = GameObject.Find("AtkBtn").GetComponent<UIButton>();
-		sklBtn = GameObject.Find("SklBtn").GetComponent<UIButton>();
-		defBtn = GameObject.Find("DefBtn").GetComponent<UIButton>();
-		atkBtn.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(1); }));
-		sklBtn.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(2); }));
-		defBtn.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(3); }));
+		sklBtn1 = GameObject.Find("SklBtn_1").GetComponent<UIButton>();
+		sklBtn2 = GameObject.Find("SklBtn_2").GetComponent<UIButton>();
+		sklBtn3 = GameObject.Find("SklBtn_3").GetComponent<UIButton>();
+		sklBtn4 = GameObject.Find("SklBtn_4").GetComponent<UIButton>();
+		sklBtn1.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(1); }));
+		sklBtn2.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(2); }));
+		sklBtn3.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(3); }));
+		sklBtn4.onClick.Add(new EventDelegate(() => { PlayerSkillChoose(4); }));
 	}
 
 	void PlayerSkillChoose(int skillId)
