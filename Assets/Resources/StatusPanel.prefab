@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 4651392254088760}
   - component: {fileID: 114146666361223630}
   - component: {fileID: 114558617297302396}
+  - component: {fileID: 54098537157851252}
   m_Layer: 5
   m_Name: StatusPanel
   m_TagString: Untagged
@@ -243,7 +244,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437935282184478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 526, y: 373, z: 0}
+  m_LocalPosition: {x: 552, y: 372, z: 0}
   m_LocalScale: {x: 1.001195, y: 1.001195, z: 1.001195}
   m_Children: []
   m_Father: {fileID: 4651392254088760}
@@ -313,8 +314,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549962666544544}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57, y: -68, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -553, y: -338, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4053680285146666}
@@ -431,6 +432,21 @@ Transform:
   m_Father: {fileID: 4172152227330620}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54098537157851252
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549962666544544}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65012534719926140
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -651,10 +667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c20815eb3063c24290a61b7020a1836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumb: {fileID: 4732241538471956}
+  thumb: {fileID: 0}
   mBG: {fileID: 114438955743662416}
   mFG: {fileID: 114671036611080532}
-  mValue: 0.805
+  mValue: 0.81
   mFill: 0
   numberOfSteps: 0
   onChange:
@@ -696,28 +712,28 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 70
-  mHeight: 26
+  mWidth: 134
+  mHeight: 27
   mDepth: 5
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.6923077
+  aspectRatio: 4.962963
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
   mText: Player
   mFontSize: 25
   mFontStyle: 0
-  mAlignment: 0
+  mAlignment: 1
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mApplyGradient: 1
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: 0.7, g: 0.7, b: 0.7, a: 1}
@@ -895,7 +911,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
-  mText: 80%
+  mText: 81%
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
@@ -933,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c20815eb3063c24290a61b7020a1836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumb: {fileID: 4722522280896474}
+  thumb: {fileID: 0}
   mBG: {fileID: 114923226650728300}
   mFG: {fileID: 114907992432653218}
   mValue: 0.805
