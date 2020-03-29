@@ -57,6 +57,8 @@ public class BattleTurnSystem : MonoBehaviour {
 	public float unitMoveSpeed = 1f;
 	// 当前单位移动后停留位置
 	private Vector3 currentUnitStopPosition;
+
+	private Dictionary<object, List<object>> battleTempDict = new Dictionary<object, List<object>>();
 	// 上回合玩家选择的目标
 	private GameObject lastActUnitTarget;
 	// 上回合玩家选择的技能
@@ -273,11 +275,14 @@ public class BattleTurnSystem : MonoBehaviour {
 		if (isWaitForPlayerToChooseSkill)
 		{
 			// 判断上次技能是否为多回合技能
-			if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
+			SkillStatus lastSkill = GetSkillFromDict();
+			if (lastSkill != null && lastSkill.turnCount > 0)
+			//if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
 			{
 				// 延续上回合的技能
 				PlayerSkillChoose(null);
-				currentActUnitTarget = lastActUnitTarget;
+				//currentActUnitTarget = lastActUnitTarget;
+				currentActUnitTarget = GetTargetFromDict();
 				Debug.Log("选择：" + currentActUnitTarget.name);
 				// 关闭敌人的碰撞
 				remainingEnemyUnits.ToList().ForEach(p =>
@@ -303,16 +308,45 @@ public class BattleTurnSystem : MonoBehaviour {
 		}
 	}
 
+	private GameObject GetTargetFromDict()
+	{
+		List<object> targetList = null;
+		GameObject lastTarget = null;
+		battleTempDict.TryGetValue(currentActUnit, out targetList);
+		if (targetList != null)
+		{
+			lastTarget = targetList[0] as GameObject;
+		}
+
+		return lastTarget;
+	}
+
+	private SkillStatus GetSkillFromDict()
+	{
+		List<object> targetList = null;
+		SkillStatus lastSkill = null;
+		battleTempDict.TryGetValue(currentActUnit, out targetList);
+		if (targetList != null)
+		{
+			lastSkill = targetList[1] as SkillStatus;
+		}
+
+		return lastSkill;
+	}
+
 	/// <summary>
 	/// 玩家技能选择
 	/// </summary>
 	public void PlayerSkillChoose(string skillId)
 	{
 		UnitStatus currentActUnitStatus = currentActUnit.GetComponent<UnitStatus>();
+		SkillStatus lastSkill = GetSkillFromDict();
 		// 如果是回合技能
-		if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
+		//if (lastActUnitSkill != null && lastActUnitSkill.turnCount > 0)
+		if (lastSkill != null && lastSkill.turnCount > 0)
 		{
-			currentActUnitStatus.SetSkill(lastActUnitSkill);
+			//currentActUnitStatus.SetSkill(lastActUnitSkill);
+			currentActUnitStatus.SetSkill(lastSkill);
 		}
 		else
 		{
@@ -344,9 +378,20 @@ public class BattleTurnSystem : MonoBehaviour {
 		if (currentActUnit.tag == Const.Player)
 		{
 			// 保存该次选择的目标
-			lastActUnitTarget = currentActUnitTarget;
+			//lastActUnitTarget = currentActUnitTarget;
 			// 保存该次技能对象
-			lastActUnitSkill = attackOwner.GetSkill();
+			//lastActUnitSkill = attackOwner.GetSkill();
+
+			object[] temArr = { currentActUnitTarget, attackOwner.GetSkill() };
+			// 不存在则添加，存在则更新
+			if (!battleTempDict.ContainsKey(currentActUnit))
+			{
+				battleTempDict.Add(currentActUnit, new List<object>(temArr));
+			}
+			else
+			{
+				battleTempDict[currentActUnit] = new List<object>(temArr);
+			}
 		}
 		// 等待时间
 		StartCoroutine("WaitForTargetAct");

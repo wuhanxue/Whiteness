@@ -32,10 +32,11 @@ public class UnitStatus : MonoBehaviour {
 	public float attackTurn;
 	// 技能号
 	public SkillStatus skillStatus;
-	public GameObject damageInfo;
+	private GameObject damageInfo;
 	// 死亡与否
 	private bool dead = false;
 	private GameObject uiRoot;
+	private GameObject statusPanel;
 	// 标识是否死亡
 	public bool IsDead
 	{
@@ -55,9 +56,18 @@ public class UnitStatus : MonoBehaviour {
 		energyPercent = energy * 1f / initialEnergy;
 		// 先后手
 		attackTurn = speed * 1f / 100;
-
 		animator = GetComponent<Animator>();
 		uiRoot = GameObject.Find("UI Root");
+		damageInfo = Resources.Load("DamageInfo") as GameObject;
+		// 人物状态栏赋值
+		if (tag == Const.Player)
+		{
+			// 单位hp和mp
+			GameObject statusPanelGo = Resources.Load("StatusPanel") as GameObject;
+			statusPanel = Instantiate(statusPanelGo);
+			statusPanel.GetComponentInChildren<UILabel>().text = name;
+			statusPanel.GetComponent<StatusPanel>().owner = gameObject;
+		}
 	}
 
 	// Update is called once per frame
