@@ -66,6 +66,17 @@ public class BattleTurnSystem : MonoBehaviour {
 	// 标识是否攻击过
 	private bool isAttacked;
 
+	private Transform playerActPos;
+	private Transform enemyActPos;
+	private Transform playerPos_1;
+	private Transform playerPos_2;
+	private Transform playerPos_3;
+	private Transform enemyPos_1;
+	private Transform enemyPos_2;
+	private Transform enemyPos_3;
+	// 初始位置
+	private Vector3 currentActUnitInitPos;
+
 	// 攻击技能名称
 	public string attackTypeName;
 	// 攻击伤害系数
@@ -86,6 +97,17 @@ public class BattleTurnSystem : MonoBehaviour {
 		winImg = GameObject.Find("WinImg");
 		winImg.SetActive(false);
 		operationPanel = GameObject.Find("OperationPanel").GetComponent<UIPanel>();
+		// 出战位置确定
+		playerActPos = GameObject.Find("PlayerActPos").transform;
+		enemyActPos = GameObject.Find("EnemyActPos").transform;
+		// 玩家初始位置
+		playerPos_1 = GameObject.Find("PlayerPos_1").transform;
+		playerPos_2 = GameObject.Find("PlayerPos_2").transform;
+		playerPos_3 = GameObject.Find("PlayerPos_3").transform;
+		// 敌人初始位置
+		enemyPos_1 = GameObject.Find("EnemyPos_1").transform;
+		enemyPos_2 = GameObject.Find("EnemyPos_2").transform;
+		enemyPos_3 = GameObject.Find("EnemyPos_3").transform;
 		// 创建参战列表
 		battleUnits = new List<GameObject>();
 		// 添加玩家单位至参战列表
@@ -130,6 +152,7 @@ public class BattleTurnSystem : MonoBehaviour {
 				isUnitRunningToTarget = false;
 				// 发起进攻
 				LanchAttack();
+				
 			}
 		}
 		// 返回
@@ -227,6 +250,15 @@ public class BattleTurnSystem : MonoBehaviour {
 
 			if (!attackOwner.IsDead)
 			{
+				currentActUnitInitPos = currentActUnit.transform.position;
+				if (currentActUnit.tag == Const.Player)
+				{
+					currentActUnit.transform.position = playerActPos.position;
+				}
+				else if (currentActUnit.tag == Const.Enemy)
+				{
+					currentActUnit.transform.position = enemyActPos.position;
+				}
 				FindTarget();
 			}
 			else
@@ -402,5 +434,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 		// 攻击结束后返回
 		isUnitRunningBack = true;
+		// 归位
+		currentActUnit.transform.position = currentActUnitInitPos;
 	}
 }
