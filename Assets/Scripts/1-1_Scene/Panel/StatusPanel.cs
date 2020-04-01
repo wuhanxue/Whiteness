@@ -13,13 +13,16 @@ public class StatusPanel : MonoBehaviour {
 
 	// HP滑动器
 	private UISlider hpBar;
-	// SP滑动器
-	private UISlider spBar;
+	// EP滑动器
+	private UISlider epBar;
+	// CP滑动器
+	private UISlider cpBar;
 
 	// Use this for initialization
 	void Start () {
 		hpBar = transform.Find(Const.HPBar).GetComponent<UISlider>();
-		spBar = transform.Find(Const.SPBar).GetComponent<UISlider>();
+		epBar = transform.Find(Const.EPBar).GetComponent<UISlider>();
+		cpBar = transform.Find(Const.CPBar).GetComponent<UISlider>();
 		ownerStatus = owner.GetComponent<UnitStatus>();
 		// 定位
 		uiRoot = GameObject.Find("UI Root");
@@ -38,6 +41,7 @@ public class StatusPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		hpBar.value = ownerStatus.healthPercent;
-		spBar.value = ownerStatus.energyPercent;
+		epBar.value = ownerStatus.energyPercent;
+		cpBar.value = ownerStatus.craftPercent;
 	}
 }
