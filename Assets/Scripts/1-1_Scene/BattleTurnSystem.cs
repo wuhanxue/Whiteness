@@ -412,7 +412,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 攻击
 		attackOwner.Attack();
 		// 被攻击方受伤
-		attackReceiver.Hurt(attackValue);
+		attackReceiver.Hurt(attackValue, attackOwner.skillStatus.rate);
 		if (currentActUnit.tag == Const.Player)
 		{
 			// 保存该次选择的目标
