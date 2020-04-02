@@ -12,10 +12,10 @@ public class MagicPanel : MonoBehaviour {
 
 	void Awake()
 	{
-		sklBtn1 = GameObject.Find("SklBtn_1").GetComponent<UIButton>();
-		sklBtn2 = GameObject.Find("SklBtn_2").GetComponent<UIButton>();
-		sklBtn3 = GameObject.Find("SklBtn_3").GetComponent<UIButton>();
-		sklBtn4 = GameObject.Find("SklBtn_4").GetComponent<UIButton>();
+		sklBtn1 = GameObject.Find("MagicPanel_2/SklBtn_1").GetComponent<UIButton>();
+		sklBtn2 = GameObject.Find("MagicPanel_2/SklBtn_2").GetComponent<UIButton>();
+		sklBtn3 = GameObject.Find("MagicPanel_2/SklBtn_3").GetComponent<UIButton>();
+		sklBtn4 = GameObject.Find("MagicPanel_2/SklBtn_4").GetComponent<UIButton>();
 		sklBtn1.onClick.Add(new EventDelegate(() => { PlayerSkillChoose("S_001_001"); }));
 		sklBtn2.onClick.Add(new EventDelegate(() => { PlayerSkillChoose("S_001_002"); }));
 		sklBtn3.onClick.Add(new EventDelegate(() => { PlayerSkillChoose("S_001_003"); }));
