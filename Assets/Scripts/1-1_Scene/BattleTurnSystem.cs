@@ -66,6 +66,17 @@ public class BattleTurnSystem : MonoBehaviour {
 	// 标识是否攻击过
 	private bool isAttacked;
 
+	private Transform playerActPos;
+	private Transform enemyActPos;
+	private Transform playerPos_1;
+	private Transform playerPos_2;
+	private Transform playerPos_3;
+	private Transform enemyPos_1;
+	private Transform enemyPos_2;
+	private Transform enemyPos_3;
+	// 初始位置
+	private Vector3 currentActUnitInitPos;
+
 	// 攻击技能名称
 	public string attackTypeName;
 	// 攻击伤害系数
@@ -77,15 +88,30 @@ public class BattleTurnSystem : MonoBehaviour {
 	// 胜利画面
 	private GameObject winImg;
 	// 操作画面
-	private UIPanel operationPanel;
+	private MenuPanel menuPanel;
 
-	void Start()
+	void Awake()
 	{
 		endImg = GameObject.Find("EndImg");
 		endImg.SetActive(false);
 		winImg = GameObject.Find("WinImg");
 		winImg.SetActive(false);
-		operationPanel = GameObject.Find("OperationPanel").GetComponent<UIPanel>();
+		menuPanel = GameObject.Find(Const.MenuPanel).GetComponent<MenuPanel>();
+		// 出战位置确定
+		playerActPos = GameObject.Find(Const.PlayerActPos).transform;
+		enemyActPos = GameObject.Find(Const.EnemyActPos).transform;
+		// 玩家初始位置
+		playerPos_1 = GameObject.Find(Const.PlayerPos_1).transform;
+		playerPos_2 = GameObject.Find(Const.PlayerPos_2).transform;
+		playerPos_3 = GameObject.Find(Const.PlayerPos_3).transform;
+		// 敌人初始位置
+		enemyPos_1 = GameObject.Find(Const.EnemyPos_1).transform;
+		enemyPos_2 = GameObject.Find(Const.EnemyPos_2).transform;
+		enemyPos_3 = GameObject.Find(Const.EnemyPos_3).transform;
+	}
+
+	void Start()
+	{
 		// 创建参战列表
 		battleUnits = new List<GameObject>();
 		// 添加玩家单位至参战列表
@@ -130,6 +156,7 @@ public class BattleTurnSystem : MonoBehaviour {
 				isUnitRunningToTarget = false;
 				// 发起进攻
 				LanchAttack();
+				
 			}
 		}
 		// 返回
@@ -227,6 +254,15 @@ public class BattleTurnSystem : MonoBehaviour {
 
 			if (!attackOwner.IsDead)
 			{
+				currentActUnitInitPos = currentActUnit.transform.position;
+				if (currentActUnit.tag == Const.Player)
+				{
+					currentActUnit.transform.position = playerActPos.position;
+				}
+				else if (currentActUnit.tag == Const.Enemy)
+				{
+					currentActUnit.transform.position = enemyActPos.position;
+				}
 				FindTarget();
 			}
 			else
@@ -294,7 +330,7 @@ public class BattleTurnSystem : MonoBehaviour {
 			else
 			{
 				// 打开操作面板，进行玩家选择
-				operationPanel.enabled = true;
+				menuPanel.OpenTargetPanel(Const.Panel_000);
 			}
 			// 启用敌人的碰撞
 			remainingEnemyUnits.ToList().ForEach(p =>
@@ -304,7 +340,9 @@ public class BattleTurnSystem : MonoBehaviour {
 		}
 		else
 		{
-			operationPanel.enabled = false;
+			// 关闭面板
+			menuPanel.CloseAllPanel();
+			menuPanel.isChoosed = false;
 		}
 	}
 
@@ -402,5 +440,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 		// 攻击结束后返回
 		isUnitRunningBack = true;
+		// 归位
+		currentActUnit.transform.position = currentActUnitInitPos;
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OperationPanel : MonoBehaviour {
+public class MagicPanel : MonoBehaviour {
 
 	UIButton sklBtn1;
 	UIButton sklBtn2;

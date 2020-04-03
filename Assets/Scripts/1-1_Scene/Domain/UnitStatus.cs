@@ -10,8 +10,10 @@ public class UnitStatus : MonoBehaviour {
 	public string unitId = "U001";
     // 血量
     public int health = 100;
-	// 能量
+	// 魔力
 	public int energy = 100;
+	// 能量
+	public int craft = 100;
 	// 攻击力
 	public int attack = 10;
 	// 技能攻击力
@@ -22,12 +24,16 @@ public class UnitStatus : MonoBehaviour {
 	public int speed = 1;
 	// 初始血量
 	public int initialHealth = 100;
-	// 初始能量
+	// 初始魔法
 	public int initialEnergy = 100;
+	// 初始能量
+	public int initialCraft = 100;
 	// 血量比
 	public float healthPercent;
-	// 能量比
+	// 魔力比
 	public float energyPercent;
+	// 能量比
+	public float craftPercent;
 	// 出手回合
 	public float attackTurn;
 	// 技能号
@@ -51,9 +57,12 @@ public class UnitStatus : MonoBehaviour {
 		// 血量设置
 		health = initialHealth;
 		healthPercent = health * 1f / initialHealth;
-		// 能量设置
+		// 魔力设置
 		energy = initialEnergy;
 		energyPercent = energy * 1f / initialEnergy;
+		// 能量设置
+		craft = initialCraft;
+		craftPercent = energy * 1f / initialCraft;
 		// 先后手
 		attackTurn = speed * 1f / 100;
 		animator = GetComponent<Animator>();
