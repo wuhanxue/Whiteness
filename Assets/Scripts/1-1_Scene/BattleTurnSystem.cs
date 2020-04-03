@@ -90,12 +90,15 @@ public class BattleTurnSystem : MonoBehaviour {
 	// 操作画面
 	private MenuPanel menuPanel;
 
+	private InfoLog infoLog;
+
 	void Awake()
 	{
 		endImg = GameObject.Find("EndImg");
 		endImg.SetActive(false);
 		winImg = GameObject.Find("WinImg");
 		winImg.SetActive(false);
+		infoLog = GameObject.Find("InfoBox").GetComponent<InfoLog>();
 		menuPanel = GameObject.Find(Const.MenuPanel).GetComponent<MenuPanel>();
 		// 出战位置确定
 		playerActPos = GameObject.Find(Const.PlayerActPos).transform;
@@ -112,6 +115,7 @@ public class BattleTurnSystem : MonoBehaviour {
 
 	void Start()
 	{
+		infoLog.AddText("战斗开始！");
 		// 创建参战列表
 		battleUnits = new List<GameObject>();
 		// 添加玩家单位至参战列表
@@ -198,6 +202,7 @@ public class BattleTurnSystem : MonoBehaviour {
 					currentActUnitTarget = targetHit.collider.gameObject;
 						
 					Debug.Log("选择：" + currentActUnitTarget.name);
+					infoLog.AddText("选择：" + currentActUnitTarget.name);
 					// 关闭敌人的碰撞
 					remainingEnemyUnits.ToList().ForEach(p =>
 					{
@@ -218,6 +223,20 @@ public class BattleTurnSystem : MonoBehaviour {
 		battleUnits.Sort((x, y) => x.GetComponent<UnitStatus>().attackTurn.
 			CompareTo(y.GetComponent<UnitStatus>().attackTurn));
 		battleUnits.ForEach(p => Debug.Log(p.name));
+		infoLog.AddText("速度排序：");
+		string str = "";
+		for (int i = 0; i < battleUnits.Count; i++)
+		{
+			if (i != battleUnits.Count - 1)
+			{
+				str += "速" + (i + 1) + ":" + battleUnits[i].name + ", ";
+			}
+			else
+			{
+				str += "速" + (i + 1) + ":" + battleUnits[i].name;
+			}
+		}
+		infoLog.AddText(str);
 	}
 
 	/// <summary>
@@ -233,12 +252,14 @@ public class BattleTurnSystem : MonoBehaviour {
 		if (remainingEnemyUnits.Length == 0)
 		{
 			Debug.Log("敌人全灭，战斗胜利");
+			infoLog.AddText("敌人全灭，战斗胜利");
 			winImg.SetActive(true);
 			return;
 		}
 		else if (remainingPlayerUnits.Length == 0)
 		{
 			Debug.Log("我方全灭，战斗失败");
+			infoLog.AddText("我方全灭，战斗失败");
 			endImg.SetActive(true);
 			return;
 		}
@@ -251,7 +272,8 @@ public class BattleTurnSystem : MonoBehaviour {
 			battleUnits.Add(currentActUnit);
 			// 获取角色组件
 			UnitStatus attackOwner = currentActUnit.GetComponent<UnitStatus>();
-
+			infoLog.AddText("------------------------");
+			infoLog.AddText(currentActUnit.name + "的回合");
 			if (!attackOwner.IsDead)
 			{
 				currentActUnitInitPos = currentActUnit.transform.position;
@@ -320,6 +342,7 @@ public class BattleTurnSystem : MonoBehaviour {
 				//currentActUnitTarget = lastActUnitTarget;
 				currentActUnitTarget = GetTargetFromDict();
 				Debug.Log("选择：" + currentActUnitTarget.name);
+				infoLog.AddText("选择：" + currentActUnitTarget.name);
 				// 关闭敌人的碰撞
 				remainingEnemyUnits.ToList().ForEach(p =>
 				{
@@ -395,6 +418,7 @@ public class BattleTurnSystem : MonoBehaviour {
 		isWaitForPlayerToChooseTarget = true;
 		// 选择目标
 		Debug.Log("请选择目标...");
+		infoLog.AddText("请选择目标...");
 	}
 
 	/// <summary>

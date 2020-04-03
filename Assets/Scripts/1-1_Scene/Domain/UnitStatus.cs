@@ -51,6 +51,13 @@ public class UnitStatus : MonoBehaviour {
 
     private Animator animator;
 
+	private InfoLog infoLog;
+
+	void Awake()
+	{
+		infoLog = GameObject.Find("InfoBox").GetComponent<InfoLog>();
+	}
+
 	// Use this for initialization
 	void Start()
 	{
@@ -161,6 +168,7 @@ public class UnitStatus : MonoBehaviour {
 	{
 		// 技能1：火焰dot伤害3回合
 		Debug.Log("选择技能1：火焰dot伤害3回合");
+		infoLog.AddText("选择技能1：火焰dot伤害3回合");
 		// 播放动画
 		animator.SetTrigger("Attack1");
 		yield return new WaitForSeconds(0.75f);
@@ -172,6 +180,7 @@ public class UnitStatus : MonoBehaviour {
 	{
 		// 技能2：即死技能
 		Debug.Log("选择技能2：即死技能");
+		infoLog.AddText("选择技能2：即死技能");
 		// 播放动画
 		animator.SetTrigger("Attack2");
 		yield return new WaitForSeconds(0.75f);
@@ -183,6 +192,7 @@ public class UnitStatus : MonoBehaviour {
 	{
 		// 技能3：魔法平A
 		Debug.Log("选择技能3：魔法平A");
+		infoLog.AddText("选择技能3：魔法平A");
 		// 播放动画
 		animator.SetTrigger("Attack3");
 		yield return new WaitForSeconds(0.75f);
@@ -194,6 +204,7 @@ public class UnitStatus : MonoBehaviour {
 	{
 		// 技能4：防御魔法
 		Debug.Log("选择技能4：防御魔法");
+		infoLog.AddText("选择技能4：防御魔法");
 		// 播放动画
 		animator.SetTrigger("Defend");
 		yield return new WaitForSeconds(0.75f);
@@ -257,6 +268,7 @@ public class UnitStatus : MonoBehaviour {
 		health -= damage;
 		healthPercent = health * 1f / initialHealth;
 		Debug.Log(gameObject.name + "掉血" + damage + "点，剩余生命值" + health);
+		infoLog.AddText(gameObject.name + "掉血" + damage + "点，剩余生命值" + health);
 		GameObject info = Instantiate(damageInfo);
 		info.GetComponent<UILabel>().text = "-" + damage;
 		info.transform.SetParent(uiRoot.transform, false);
@@ -272,6 +284,7 @@ public class UnitStatus : MonoBehaviour {
 		unitPos.z = 0f;
 		Vector3 unitScreenPos = UICamera.currentCamera.ScreenToWorldPoint(unitPos);
 		Debug.Log(gameObject.name + "避开了攻击");
+		infoLog.AddText(gameObject.name + "避开了攻击");
 		GameObject info = Instantiate(damageInfo);
 		info.GetComponent<UILabel>().text = "Miss";
 		info.transform.SetParent(uiRoot.transform, false);
