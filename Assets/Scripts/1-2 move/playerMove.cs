@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour {
 
-    public float smoothing = 20;  // 移动速度
+    public float smoothing = 5;  // 移动速度
 	public float restTime = 0.15f;  // 休息时间
 	public float restTimer = 0;
 
@@ -21,38 +21,36 @@ public class playerMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		restTimer += Time.deltaTime;
-		if (restTimer < restTime) return;
-		float h = Input.GetAxisRaw("Horizontal");
-		float v = Input.GetAxisRaw("Vertical");
-		animator.SetInteger("direction", -1);
-		if (h > 0){
-          v = 0;
-		}
-		if (h != 0 || v != 0)  // 发生了移动
-		{
-			targetPos = new Vector2(h, v);
-			rigidbody.MovePosition(Vector2.Lerp(transform.position, targetPos, smoothing * Time.deltaTime));
-			if (h < 0)
-			{
-			    animator.SetInteger("direction", 0);
-			}
-			if (h > 0)
-			{
-				animator.SetInteger("direction", 2);
-			}
-			if (v < 0)
-			{
-				animator.SetInteger("direction", 1);
-			}
-			if (v > 0)
-			{
-				animator.SetInteger("direction", 3);
-			}
-			restTimer = 0;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        if (h != 0)
+        {
+            v = 0;
+        }
 
-			
+        transform.position += new Vector3(h * smoothing * Time.deltaTime, v * smoothing * Time.deltaTime, 0);
+        if (h < 0)
+        {
+            animator.SetInteger("direction", 0);
+        }
+        if (h > 0)
+        {
+            animator.SetInteger("direction", 2);
+        }
+        if (v < 0)
+        {
+            animator.SetInteger("direction", 1);
+        }
+        if (v > 0)
+        {
+            animator.SetInteger("direction", 3);
+        }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        {
+            animator.SetInteger("direction", -1);
+        }
 
-		}
+
+    
 	}
 }
