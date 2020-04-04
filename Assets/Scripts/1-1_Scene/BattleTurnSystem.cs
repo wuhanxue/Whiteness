@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 战斗系统
@@ -462,5 +463,11 @@ public class BattleTurnSystem : MonoBehaviour {
 		isUnitRunningBack = true;
 		// 归位
 		currentActUnit.transform.position = currentActUnitInitPos;
+	}
+
+
+	public void BackBtnClick()
+	{
+		SceneManager.LoadScene(0);
 	}
 }

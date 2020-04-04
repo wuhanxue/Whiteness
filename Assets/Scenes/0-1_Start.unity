@@ -482,7 +482,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   mFont: {fileID: 0}
-  mText: Start Game
+  mText: "\u4EBA\u7269\u79FB\u52A8\u573A\u666F1"
   mFontSize: 50
   mFontStyle: 0
   mAlignment: 0
@@ -622,7 +622,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   mFont: {fileID: 0}
-  mText: Load Game
+  mText: "\u6218\u6597\u573A\u666F2"
   mFontSize: 50
   mFontStyle: 0
   mAlignment: 0
@@ -675,7 +675,7 @@ MonoBehaviour:
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 2047941132}
-    mMethodName: OnStartBtnClick
+    mMethodName: OnLoadBtnClick
     mParameters: []
     oneShot: 0
 --- !u!65 &1785785288

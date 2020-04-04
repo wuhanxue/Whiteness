@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class    PlayerMove : MonoBehaviour {
 
@@ -54,4 +55,11 @@ public class    PlayerMove : MonoBehaviour {
 
     
 	}
+
+
+    // 返回按钮，后期删了
+    public void BackBtnClick()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
