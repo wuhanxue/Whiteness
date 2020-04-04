@@ -45,12 +45,11 @@ public class    PlayerMove : MonoBehaviour {
         {
             animator.SetInteger("direction", 3);
         }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        //if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        if(h==0 && v==0)
         {
             animator.SetInteger("direction", -1);
         }
-
-
 
 
     
