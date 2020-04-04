@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerMove : MonoBehaviour {
+public class    PlayerMove : MonoBehaviour {
 
     public float speed = 2;  // 移动速度
 	public float restTime = 0.15f;  // 休息时间
