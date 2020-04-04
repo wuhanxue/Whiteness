@@ -429,14 +429,10 @@ public class BattleTurnSystem : MonoBehaviour {
 		// 存储攻击者和受攻击者的属性组件
 		UnitStatus attackOwner = currentActUnit.GetComponent<UnitStatus>();
 		UnitStatus attackReceiver = currentActUnitTarget.GetComponent<UnitStatus>();
-		// 计算伤害
-		attackValue = (int) ((attackOwner.skillStatus.damage - attackReceiver.defence + Random.Range(-2, 2))
-			* attackDamageMultiplier);
-		if (attackValue < 0) attackValue = 0;
 		// 攻击
 		attackOwner.Attack();
 		// 被攻击方受伤
-		attackReceiver.Hurt(attackValue, attackOwner.skillStatus.rate);
+		attackReceiver.Hurt(attackOwner);
 		if (currentActUnit.tag == Const.Player)
 		{
 			// 保存该次选择的目标
