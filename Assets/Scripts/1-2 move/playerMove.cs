@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour {
 
-    public float smoothing = 5;  // 移动速度
+    public float speed = 2;  // 移动速度
 	public float restTime = 0.15f;  // 休息时间
 	public float restTimer = 0;
 
@@ -28,7 +28,7 @@ public class playerMove : MonoBehaviour {
             v = 0;
         }
 
-        transform.position += new Vector3(h * smoothing * Time.deltaTime, v * smoothing * Time.deltaTime, 0);
+        transform.position += new Vector3(h * speed * Time.deltaTime, v * speed * Time.deltaTime, 0);
         if (h < 0)
         {
             animator.SetInteger("direction", 0);
@@ -49,6 +49,8 @@ public class playerMove : MonoBehaviour {
         {
             animator.SetInteger("direction", -1);
         }
+
+
 
 
     
