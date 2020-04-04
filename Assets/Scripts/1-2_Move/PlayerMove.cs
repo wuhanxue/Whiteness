@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class playerMove : MonoBehaviour {
+public class    PlayerMove : MonoBehaviour {
 
     public float speed = 2;  // 移动速度
 	public float restTime = 0.15f;  // 休息时间
@@ -45,14 +46,20 @@ public class playerMove : MonoBehaviour {
         {
             animator.SetInteger("direction", 3);
         }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        //if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        if(h==0 && v==0)
         {
             animator.SetInteger("direction", -1);
         }
 
 
-
-
     
 	}
+
+
+    // 返回按钮，后期删了
+    public void BackBtnClick()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

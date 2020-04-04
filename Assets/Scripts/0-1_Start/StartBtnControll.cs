@@ -10,6 +10,13 @@ public class StartBtnControll : MonoBehaviour {
     /// </summary>
     public void OnStartBtnClick()
     {
+        SceneManager.LoadScene(2);
+    }
+
+
+    
+    public void OnLoadBtnClick()
+    {
         SceneManager.LoadScene(1);
     }
 
