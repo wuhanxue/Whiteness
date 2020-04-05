@@ -74,7 +74,6 @@ public class MenuPanel : MonoBehaviour {
 
 	void PlayerMenuChoose(string panelId)
 	{
-		Debug.Log("Choose " + panelId);
 		isChoosed = true;
 		// 玩家操作，打开面板
 		OpenTargetPanel(panelId);

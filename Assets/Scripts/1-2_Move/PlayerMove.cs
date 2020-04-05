@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class    PlayerMove : MonoBehaviour {
 
@@ -45,14 +46,20 @@ public class    PlayerMove : MonoBehaviour {
         {
             animator.SetInteger("direction", 3);
         }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        //if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        if(h==0 && v==0)
         {
             animator.SetInteger("direction", -1);
         }
 
 
-
-
     
 	}
+
+
+    // 返回按钮，后期删了
+    public void BackBtnClick()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
